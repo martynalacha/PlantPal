@@ -88,28 +88,13 @@ def resolve_get_species(_, info):
 
 @query.field("getMyPlants")
 def resolve_get_my_plants(_, info):
-    print("\n🔵 --- DEBUG START: getMyPlants ---") # 1. Wiemy, że funkcja ruszyła
-
+   
     auth = check_auth(info.context)
     if not auth:
-        print("❌ Brak autoryzacji (tokenu)")
         return []
     
     # Pobieramy rośliny z bazy
-    plants = list(db.plants.find({"user_id": auth["user_id"]}))
-    print(plants)
-    # for p in plants:
-        # 1. Konwersja ID
-        # p["_id"] = str(p["_id"])
-        
-        # 2. Mapowanie camelCase (baza) -> snake_case (Ariadne)
-        # Ariadne szuka p['last_watered'], a w bazie  p['lastWatered']
-        # if "lastWatered" in p:
-        #     p["last_watered"] = p["lastWatered"]
-        # else:
-        #     # Opcjonalnie: jeśli roślina jest nowa i nie ma daty, ustaw None
-        #     p["lastWatered"] = None
-            
+    plants = list(db.plants.find({"user_id": auth["user_id"]}))            
     return plants
 
 # --- RESOLVERY PLANT ---
@@ -122,7 +107,6 @@ def resolve_plant_species(obj, info):
         return None
 
     try:
-        # Upewniamy się, że szukamy po ObjectId w MongoDB
         s = db.species.find_one({"_id": ObjectId(sid)})
     except Exception as e:
         return None
@@ -130,7 +114,6 @@ def resolve_plant_species(obj, info):
     if not s:
         return None
 
-    # Mapowanie jawne, aby Apollo dostawał czyste typy Python -> JSON
     species_obj = {
         "_id": str(s["_id"]),
         "name": str(s.get("name", "")),
@@ -220,13 +203,6 @@ def resolve_water_plant(_, info, id):
     # Zabezpieczenie: jeśli roślina nie istnieje (np. ktoś ją usunął w międzyczasie)
     if not plant:
         raise Exception("Plant not found")
-
-    # 3. NAPRAWIAMY TYPY DLA GRAPHQL
-    plant["_id"] = str(plant["_id"])
-    
-    # KLUCZOWY MOMENT: Tłumaczymy camelCase z bazy na snake_case dla Ariadne
-    if "lastWatered" in plant:
-        plant["last_watered"] = plant["lastWatered"]
         
     return plant
 
