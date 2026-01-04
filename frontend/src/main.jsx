@@ -9,7 +9,7 @@ import { createHttpLink } from '@apollo/client/link/http'
 import { setContext } from '@apollo/client/link/context'
 // Adres Twojego serwera Python
 const httpLink = createHttpLink({
-  uri: 'http://127.0.0.1:5000/graphql',
+  uri: 'https://plantpal-yjr1.onrender.com/graphql',
 });
 
 // Dodawanie tokena do każdego zapytania (Autoryzacja)
