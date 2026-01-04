@@ -1,0 +1,56 @@
+# --- Typy danych ---
+type Species {
+    _id: String
+    name: String
+    wateringInterval: Int
+    imageUrl: String
+
+    description: String   # Opis ogólny
+    funFact: String       # Ciekawostka (osobno)
+    fertilizer: String    # Odżywka
+    lightLevel: Int       # Poziom światła (1-5)
+}
+
+type Plant {
+    _id: String
+    name: String!
+    lastWatered: String
+    species: Species
+}
+
+type AuthPayload {
+    token: String
+    role: String
+    username: String
+    error: String
+}
+
+# --- Zapytania ---
+type Query {
+    getSpecies: [Species]
+    getMyPlants: [Plant]
+}
+
+# --- Mutacje ---
+type Mutation {
+    # Auth
+    register(username: String!, password: String!): AuthPayload
+    login(username: String!, password: String!): AuthPayload
+
+    # Admin
+    addSpecies(
+        name: String!, 
+        wateringInterval: Int!, 
+        imageUrl: String!,
+        description: String!,
+        funFact: String!,      
+        fertilizer: String!,   
+        lightLevel: Int!       
+    ): Species
+    deleteSpecies(id: String!): Boolean
+
+    # User
+    addPlant(name: String!, speciesId: String!): Plant
+    deletePlant(id: String!): Boolean
+    waterPlant(id: String!): Plant
+}

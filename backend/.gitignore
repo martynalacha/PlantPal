@@ -1,0 +1,17 @@
+
+# --- Pliki konfiguracyjne z hasłami (BARDZO WAŻNE) ---
+.env
+
+# --- Pliki tymczasowe Pythona (skompilowane kody) ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Środowisko wirtualne (jeśli używasz venv) ---
+venv/
+.venv/
+env/
+
+# --- Logi i bazy lokalne (opcjonalnie) ---
+*.log
+*.sqlite3

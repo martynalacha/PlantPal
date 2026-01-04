@@ -1,0 +1,59 @@
+/* --- ZMIENNE I RESET --- */
+:root {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  
+  /* Paleta kolorów (zmienne ułatwiają zmiany w przyszłości) */
+  --primary: #2e7d32;      /* Ciemna zieleń */
+  --primary-hover: #1b5e20;
+  --bg-color: #f4f7f6;     /* Tło strony */
+  --text-color: #333;
+  --white: #ffffff;
+  --error: #d32f2f;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Kontener główny aplikacji */
+#root {
+  width: 100%;
+  margin: 0 auto;
+  /* Nie dajemy tu paddingu ani max-width na sztywno, 
+     zrobimy to w main w App.css */
+}
+
+/* --- ELEMENTY FORMULARZY (Globalne style) --- */
+input, select, textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* --- POMOCNICZE KLASY --- */
+.error-msg {
+  color: var(--error);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+  background-color: #ffebee;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
